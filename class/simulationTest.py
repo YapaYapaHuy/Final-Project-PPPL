@@ -7,7 +7,12 @@ Budi = Professionals(2000, 'bukanKonsultan', 'Budi',
                      'budi@mail.com', 909, '012-BIN', 'Kamis')
 Jono = Admin(301, 'bukanAdmin', 'Admin App 01', 'jono@mail.com')
 
-Andi.buatForm('Fake data')
+# Contoh login
+Andi.login('cumanTest')
+print('Login status:', Andi.verifyLogin(), '\n')
+
+# Konsultasi
+Andi.buatForm(['Kurang percaya diri', 'Tidak produktif'])
 Andi.mintaKonsultasi('Kamis', 'Konsultasi Biasa')
 for key, value in Andi.giveConsultList().items():
     consultID = key

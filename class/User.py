@@ -8,7 +8,7 @@ class User():
         self.loginStatus = False
 
     def verifyLogin(self):
-        return loginStatus
+        return self.loginStatus
 
     @abstractmethod
     def login(self, passwordInput):

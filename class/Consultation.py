@@ -1,5 +1,5 @@
 class Consultation:
-    def __init__(self, consultID, studentID, time, consultType, pID=None, studentForm=None):
+    def __init__(self, consultID, studentID, time, consultType, studentForm=None, pID=None):
         self.consultID = consultID
         self.consultTime = time
         self.studentID = studentID
@@ -10,7 +10,7 @@ class Consultation:
         self.studentForm = studentForm
 
     def printDetail(self):
-        return str("StudentID: " + str(self.studentID) + " | Time: " + self.consultTime)
+        return str("StudentID: " + str(self.studentID) + " | Time: " + str(self.consultTime) + " | Consultant: " + str(self.pID))
 
     def kirimHasil(self):
         print("Hasil konsultasi: " + self.result)
