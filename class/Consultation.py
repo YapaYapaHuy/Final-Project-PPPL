@@ -10,7 +10,8 @@ class Consultation:
         self.studentForm = studentForm
 
     def printDetail(self):
-        return str("StudentID: " + str(self.studentID) + " | Time: " + str(self.consultTime) + " | Consultant: " + str(self.pID))
+        print(str("StudentID: " + str(self.studentID) + " | Time: " +
+                  str(self.consultTime) + " | Consultant: " + str(self.pID)))
 
     def kirimHasil(self):
         print("Hasil konsultasi: " + self.result)
