@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block content %}
+<main>
+    <section class="text-center mb-4">
+        <div class="row wow fadeIn">
+  
+          {% for item in object_list %}
+          <div class="col-lg-4 col-md-6 mb-4">
+  
+            <div class="card">
+  
+              <div class="card-body text-left">
+                <ul>
+                    <li>Student : {{ item.student }}</li>
+                    <li>Request Date : {{ item.request_date }}</li>
+                    <li>Consultation Date : {{ item.consultation_date}}</li>
+                    <li>Category : 
+                        {% for i in item.category.all %}
+                            {{i}}
+                        {% endfor %}
+                    </li>
+                    <li>Reason : {{ item.reason}}</li>
+                    <li>Accepted : {{ item.accepted }}</li>
+                </ul>
+                <button class="accept-button" id="btn-{{item.id}}" value="{{ item.id }}">Accept Request</button>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+  
+      </section>
+      <!--Section: Products v.3-->
+  
+      <!--Pagination-->
+  
+      {% if is_paginated %}
+      <nav class="d-flex justify-content-center wow fadeIn">
+        <ul class="pagination pg-blue">
+  
+          {% if page_obj.has_previous %}
+          <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+              <span class="sr-only">Previous</span>
+            </a>
+          </li>
+          {% endif %}
+  
+          <li class="page-item active">
+            <a class="page-link" href="?page={{ page_obj.number }}">{{ page_obj.number }}
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+  
+          {% if page_obj.has_next %}
+          <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+              <span class="sr-only">Next</span>
+            </a>
+          </li>
+          {% endif %}
+        </ul>
+      </nav>
+      {% endif %}
+    </div>
+</main>
+
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script>
+    jQuery(document).on('click', ".accept-button", function () {
+      var $this = $(this);
+      var request_id = $(this).val();
+      $.ajax({
+        url: "{% url 'ajax_accept_request' %}",
+        data: {
+          'csrfmiddlewaretoken': '{{csrf_token}}',
+          'request_id': request_id
+        },
+        dataType: 'json',
+        success: function (data) {
+          if (data.success) {
+            alert("ajax call success.");
+            // here you update the HTML to change the active to innactive
+          }else{
+            alert("ajax call not success.");
+          }
+        }
+      });
+
+    });
+</script>
+{% endblock content %}

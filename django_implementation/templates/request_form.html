@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+  <h2 class="mb-3">Enter Request Detail</h2>
+  <form method="post" novalidate>
+    {% csrf_token %}
+    {{ form|crispy }}
+    {% for item in object_list %}
+          <div class="col-lg-4 col-md-6 mb-4">
+  
+            <div class="card">
+  
+              <div class="card-body text-left">
+                <ul>
+                    <li>Username : {{ item }}</li>
+                    <li>Fullname : {{ item.fullname }}</li>
+                    <li>Education : {{ item.education }}</li>
+                    <li>Specialty : 
+                      <ol>
+                      {% for i in item.speciality.all %}
+                          <li>{{i}}</li>
+                      {% endfor %}
+                      </ol>
+                    </li>
+                    <li>Available Days : 
+                      <ol>
+                      {% for i in item.available_days.all %}
+                          <li>{{i}}</li>
+                      {% endfor %}
+                      </ol>
+                    </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+    {% endfor %}
+    <button type="submit" class="btn btn-success">Submit Request</button>
+  </form>
+{% endblock %}

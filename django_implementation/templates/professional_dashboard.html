@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+<main>
+  <div class="container">
+    <h2>Professional Dashboard<span class="icon-emo-happy"></span></h2>
+    <a href="{% url 'professional_request_list' %}" class="btn btn-student btn-lg" role="button">See List of Request</a>
+    <a href="{% url 'professional_consultation_list' %}" class="btn btn-student btn-lg" role="button">See List of Consultation</a>
+  </div>
+</main>
+
+{% endblock content %}

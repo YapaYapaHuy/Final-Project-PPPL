@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+<main>
+  <div class="container">
+    <h2>Student Dashboard<span class="icon-emo-happy"></span></h2>
+    <a href="{% url 'consultation_request' %}" class="btn btn-student btn-lg" role="button">Make Consultation Request</a>
+    <a href="{% url 'student_request_list' %}" class="btn btn-student btn-lg" role="button">See List of Request</a>
+    <a href="{% url 'student_consultation_list' %}" class="btn btn-student btn-lg" role="button">See Consultations</a>
+  </div>
+</main>
+
+{% endblock content %}
