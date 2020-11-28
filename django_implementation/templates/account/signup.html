@@ -1,11 +1,27 @@
 {% extends "account/base.html" %}
+
 {% load i18n %}
 {% load crispy_forms_tags %}
 
 {% block head_title %}{% trans "Signup" %}{% endblock %}
-  {% block content %}
-    <h2>Sign up for a free account</h2>
-    <p class="lead">Select below the type of account you want to create</p>
-    <a href="{% url 'student_signup' %}" class="btn btn-student btn-lg" role="button">Student</a>
-    <a href="{% url 'professional_signup' %}" class="btn btn-professional btn-lg" role="button">Professional</a>
-  {% endblock %}
+{% block content %}
+<main>
+  <div class="container">
+  <div class="row wow fadeIn animated" style="visibility: visible; animation-name: fadeIn;">
+    <div class="col-6 offset-3">
+
+      <h1>{% trans 'Sign Up' %}</h1>
+      <p> if you already created an account, then please <a href="{% url 'account_login' %}">sign in</a>.</p>
+
+      <p>Select below the type of account you want to create.</p>
+      <div class="d-flex">
+        <a class="btn btn-outline-primary" href="{% url 'student_signup' %}"button">Student Account</a>
+      
+        <a class="btn btn-outline-warning" href="{% url 'professional_signup' %}"button">Professional Account</a>
+      </div>
+    </div>
+  </div>
+  </div>
+</main>
+  
+{% endblock %}

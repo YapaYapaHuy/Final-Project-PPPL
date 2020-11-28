@@ -3,12 +3,17 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-  <h2 class="mb-3">Enter Request Detail</h2>
+<main>
+  <div class="container">
+  <div class="row wow fadeIn animated" style="visibility: visible; animation-name: fadeIn;">
+    
+  <div class="d-flex flex-column">
+  <h2 class="mb-3">Please Enter Your Request Detail </h2>
   <form method="post" novalidate>
     {% csrf_token %}
     {{ form|crispy }}
     {% for item in object_list %}
-          <div class="col-lg-4 col-md-6 mb-4">
+          <div class="col-lg-12 col-md-12 mb-4">
   
             <div class="card">
   
@@ -38,4 +43,10 @@
     {% endfor %}
     <button type="submit" class="btn btn-success">Submit Request</button>
   </form>
+</div>
+
+</div>
+</div>
+</div>
+</main>
 {% endblock %}
