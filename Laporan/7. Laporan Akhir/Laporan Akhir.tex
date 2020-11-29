@@ -1,0 +1,193 @@
+\documentclass{article}
+
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ total={170mm,257mm},
+ left=20mm,
+ top=20mm
+ }
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{indentfirst}
+\usepackage{hyperref}
+
+\graphicspath{ {./images/} }
+\renewcommand*\contentsname{Daftar Isi}
+\renewcommand{\figurename}{Figur}
+\renewcommand{\tablename}{Tabel}
+
+\begin{document}
+	\begin{titlepage}
+		\begin{center}
+			
+			\null
+			{
+				\huge \bfseries Tugas Praktikum Pengembangan Perangkat Lunak}\\
+			[1cm]
+			{\LARGE Project Report}\\
+			
+			\vspace{2cm}
+			
+			\begin{figure}[H]
+				\centering
+				\includegraphics[width=200px]{/HitamPutih.jpg}
+			\end{figure}
+			
+			\vspace{3cm}
+			
+			{\Large 
+				Disusun oleh Kelompok YapaYapaHuy} {\Large :\\
+				\vspace{0.5cm}
+				Ardacandra Subiantoro (18/427572/PA/18532)\\
+				Chrystian (18/430257/PA/18770)\\
+				Juandito Batara Kuncoro (18/427582/PA/18542)\\
+			}
+			
+			
+			\vspace{2cm}
+			
+			{\normalsize \bfseries
+				PROGRAM STUDI S1 ILMU KOMPUTER\\
+				DEPARTEMEN ILMU KOMPUTER DAN ELEKTRONIKA\\
+				FAKULTAS MATEMATIKA DAN ILMU PENGETAHUAN ALAM\\
+				UNIVERSITAS GADJAH MADA\\
+				YOGYAKARTA\\
+				\vspace{0.2cm}
+				2020
+			}
+			
+		\end{center}
+	\end{titlepage}
+
+	\newpage
+	\pagenumbering{arabic}
+	
+	\section{Background}
+	\par Keadaan pandemi COVID-19 menyebabkan banyak mahasiswa kekurangan interaksi sosial sehingga mereka tidak dapat memenuhi kebutuhan sosial mereka. Hal ini dapat menyebabkan stres berlebih dan kurangnya produktivitas. Tujuan program ini adalah membantu mahasiswa yang mengalami masalah mental oleh karena keadaan pandemi dengan memberikan mereka saran dan bantuan profesional. 
+
+	\par Untuk memenuhi kebutuhan tersebut desain perangkat lunak harus memiliki tingkat aksesibilitas yang tinggi untuk dapat diraih dan diketahui oleh mahasiswa yang bermasalah tersebut. Dengan profesional ahli, sistem harus dapat mengatur pertemuan, melakukan penjadwalan, serta menghubungkan profesional dengan mahasiswa bermasalah secara cepat, tepat, dan efisien. 
+
+
+	\section{Business Process}
+	\par Bisnis proses pada perangkat lunak KataHati melibatkan beberapa pihak : mahasiswa, tenaga profesional, dan admin. 
+	\par Mahasiswa pertama-tama membuat akun dengan mendaftarkan email mereka dan melakukan proses verifikasi. Lalu, mereka mengisi form yang berisi pertanyaan-pertanyaan mengenai gejala-gejala yang biasanya tampak pada orang-orang dengan masalah mental. Hasil dari form tersebut akan mengklasifikasikan masalah mental yang dialami mahasiswa (depresi, bipolar, OCD, dll) dan digunakan untuk mengarahkan mahasiswa tersebut kepada tenaga profesional dengan spesialisasi yang sesuai. Mahasiswa lalu memilih slot jadwal yang tersedia dari tenaga profesional yang ada dan membuat janji temu secara daring. Pada waktu yang sudah dipilih, mahasiswa akan bertemu dengan tenaga profesional melalui media chat untuk mendapatkan saran akan masalah mereka. Mahasiswa dapat memilih untuk konsultasi secara anonim bila mereka tidak ingin memberikan identitas mereka. Mahasiswa juga dapat bergabung dengan sharing group berisi mahasiswa-mahasiswa lain dengan masalah yang mirip untuk saling mendukung satu sama lain. 
+	\par Tenaga profesional adalah dokter, tenaga magang, psikolog, atau mahasiswa dengan keahlian di bidang kesehatan mental yang bersedia membantu mahasiswa-mahasiswa yang memiliki masalah mental. Tenaga profesional memberikan jadwal dimana mereka memiliki waktu kosong dan dapat memberikan konsultasi daring. Lalu, tenaga profesional bertemu secara daring melalui chat dengan mahasiswa-mahasiswa yang sudah membuat janji untuk memberikan bantuan dan saran. 
+	\par Admin adalah karyawan yang fasih komputer dan memiliki tugas memastikan semua proses dalam perangkat lunak ini berjalan dengan lancar. Tugas mereka antara lain adalah memastikan sistem penjadwalan berjalan dengan sesuai, memoderasikan sharing group agar tidak menyimpang dari tujuan awalnya, berinteraksi dengan mahasiswa dan tenaga profesional yang memiliki masalah teknis, dan mengurus database. 
+	\section{Purpose of application}
+	% NOT DONE %
+	\section{Technology used}
+	% NOT DONE %
+	
+	\section{Application Diagram}
+
+	\subsection{Use Case Diagram}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=400px]{Use Case Kata Hati.png}
+	\end{figure}
+
+	\subsection{Class Diagram}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=400px]{class_diagram.png}
+	\end{figure}
+
+	\subsection{Activity Diagram}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=300px]{Activity Diagram.png}
+	\end{figure}
+
+	\subsection{Sequential Diagram}
+	\subsubsection{Sign Up}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=400px]{seq Sign Up.png}
+	\end{figure}
+
+	\subsubsection{Pengajuan Konsultasi}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=400px]{seq Mengajukan Konsultasi.png}
+	\end{figure}
+
+	\subsubsection{Menerima Konsultasi}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=400px]{seq Menerima Konsultasi (1).png}
+	\end{figure}
+
+	\section{Screenshot}
+	\href{http://yapayapahuy.blitzcorp.cyou/}{YapaYapaHuy.blitzcorp.cyou (*fase percobaan)}
+	\subsection{Sudut Pandang Mahasiswa}
+	\subsubsection{Home Page}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=480px]{Home Page.png}
+	\end{figure}
+
+	\subsubsection{Sign Up Mahasiswa}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=480px]{Sign Up Mahasiswa.png}
+	\end{figure}
+
+	\subsubsection{Sign In}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=480px]{Sign In.png}
+	\end{figure}
+
+	\subsubsection{Student Dashboard}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=480px]{Student Dashboard.png}
+	\end{figure}
+
+	\subsubsection{Make Consultation Request}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=480px]{Consultation Request.png}
+	\end{figure}
+
+	\subsubsection{List of Request}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=480px]{Request List.png}
+	\end{figure}
+
+	\subsubsection{List of Consultation (Diterima)}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=480px]{Consultation.png}
+	\end{figure}
+
+	\subsection{Sudut Pandang Professional}
+	\subsubsection{Sign In Professional}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=480px]{Sign In Prof.png}
+	\end{figure}
+
+	\subsubsection{Professional Dashboard}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=480px]{Prof Dash.png}
+	\end{figure}
+
+	\subsubsection{Professional List of Request}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=480px]{Prof List.png}
+	\end{figure}
+
+	\subsubsection{Professional List of Consultation}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=480px]{Prof Active List.png}
+	\end{figure}
+
+	\section{Listing Code}
+	\href{https://github.com/YapaYapaHuy/Final-Project-PPPL}{Link YapaYapaHuy GitHub}
+\end{document}
