@@ -109,6 +109,7 @@ INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmr12.tfm
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmbx10.tfm
 INPUT C:\Users\Chrystian\AppData\Local\MiKTeX\pdftex\config\pdftex.map
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmbx12.tfm
+INPUT C:\Program Files\MiKTeX\fonts\tfm\jknappen\ec\tcrm1000.tfm
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmr12.tfm
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmbx12.tfm
 INPUT images\Use Case Kata Hati.png
@@ -196,9 +197,12 @@ INPUT .\images\Prof Active List.png
 INPUT .\images\Prof Active List.png
 INPUT .\images\Prof Active List.png
 INPUT .\images\Prof Active List.png
+INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmtt10.tfm
 INPUT c:\Users\Chrystian\Desktop\Tugas Semester 5\PPPL\Final-Project-PPPL\Laporan\7. Laporan Akhir\Laporan Akhir.aux
 INPUT c:\Users\Chrystian\Desktop\Tugas Semester 5\PPPL\Final-Project-PPPL\Laporan\7. Laporan Akhir\Laporan Akhir.out
 INPUT c:\Users\Chrystian\Desktop\Tugas Semester 5\PPPL\Final-Project-PPPL\Laporan\7. Laporan Akhir\Laporan Akhir.out
+INPUT C:\Users\Chrystian\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\tcrm1000.pk
+INPUT C:\Users\Chrystian\AppData\Local\MiKTeX\fonts\pk\ljfour\jknappen\ec\dpi600\tcrm1000.pk
 INPUT C:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmbx10.pfb
 INPUT C:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmbx10.pfb
 INPUT C:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmbx12.pfb
@@ -209,3 +213,5 @@ INPUT C:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmr12.pfb
 INPUT C:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmr12.pfb
 INPUT C:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmr17.pfb
 INPUT C:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmr17.pfb
+INPUT C:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmtt10.pfb
+INPUT C:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmtt10.pfb

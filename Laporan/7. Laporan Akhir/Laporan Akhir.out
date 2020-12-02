@@ -1,7 +1,7 @@
 \BOOKMARK [1][-]{section.1}{Background}{}% 1
 \BOOKMARK [1][-]{section.2}{Business Process}{}% 2
-\BOOKMARK [1][-]{section.3}{Purpose of application}{}% 3
-\BOOKMARK [1][-]{section.4}{Technology used}{}% 4
+\BOOKMARK [1][-]{section.3}{Purpose of Application}{}% 3
+\BOOKMARK [1][-]{section.4}{Technology Used}{}% 4
 \BOOKMARK [1][-]{section.5}{Application Diagram}{}% 5
 \BOOKMARK [2][-]{subsection.5.1}{Use Case Diagram}{section.5}% 6
 \BOOKMARK [2][-]{subsection.5.2}{Class Diagram}{section.5}% 7
@@ -25,3 +25,7 @@
 \BOOKMARK [3][-]{subsubsection.6.2.3}{Professional List of Request}{subsection.6.2}% 25
 \BOOKMARK [3][-]{subsubsection.6.2.4}{Professional List of Consultation}{subsection.6.2}% 26
 \BOOKMARK [1][-]{section.7}{Listing Code}{}% 27
+\BOOKMARK [2][-]{subsection.7.1}{Django urls}{section.7}% 28
+\BOOKMARK [2][-]{subsection.7.2}{Django Database Model}{section.7}% 29
+\BOOKMARK [2][-]{subsection.7.3}{Django Views}{section.7}% 30
+\BOOKMARK [2][-]{subsection.7.4}{Django Forms}{section.7}% 31

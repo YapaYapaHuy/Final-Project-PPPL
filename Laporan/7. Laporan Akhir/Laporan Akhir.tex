@@ -81,6 +81,7 @@
 		\item Django (Web Framework)
 		\item Bootstrap (Web Front-End)
 		\item SQLite (Database)
+		\item Nginx (Web Server, Web Balancer \& Reverse Proxy)
 	\end{itemize}
 	
 	\section{Application Diagram}
@@ -193,5 +194,364 @@
 	\end{figure}
 
 	\section{Listing Code}
-	\href{https://github.com/YapaYapaHuy/Final-Project-PPPL}{Link YapaYapaHuy GitHub}
+	Seluruh Source Code HTML, CSS, dll. dapat dilihat pada \href{https://github.com/YapaYapaHuy/Final-Project-PPPL}{Link github.com/YapaYapaHuy/Final-Project-PPPL}
+	\\
+	Beberapa Contoh dari Source Code :
+	\subsection{Django urls}
+	\begin{verbatim}
+from django.urls import path, include
+
+from .views import (
+    HomeView,
+    StudentFormView,
+    ProfessionalFormView,
+    StudentDashboardView,
+    ProfessionalDashboardView,
+    ConsultationRequestView,
+)
+
+app_name = 'core'
+
+urlpatterns = [
+    path('', HomeView.as_view(), name='home'),
+    path('dashboard/student/', StudentDashboardView.as_view(), name="student_dashboard"),
+    path('dashboard/professional/', ProfessionalDashboardView.as_view(), name="professional_dashboard"),
+]   
+	\end{verbatim}
+
+	\newpage
+	\subsection{Django Database Model}
+	\begin{verbatim}
+from django.contrib.auth.models import AbstractUser
+from django.db import models
+from django.conf import settings
+
+class User(AbstractUser):
+	is_student = models.BooleanField(default=False)
+	is_professional = models.BooleanField(default=False)
+
+class StudentProfile(models.Model):
+	user = models.OneToOneField(
+		User, on_delete=models.CASCADE, primary_key=True)
+	fullname = models.TextField(default="NAME")
+	nim = models.TextField()
+	email = models.EmailField(default="EMAIL")
+
+	def __str__(self):
+		return self.user.username
+
+class CategoryChoices(models.Model):
+	category = models.CharField(max_length=50)
+
+	def __str__(self):
+		return self.category
+
+class AvailableDays(models.Model):
+	days = models.CharField( max_length=20)
+
+	def __str__(self):
+		return self.days
+
+class ProfessionalProfile(models.Model):
+	user = models.OneToOneField(
+		User, on_delete=models.CASCADE, primary_key=True)
+	fullname = models.TextField(null=True)
+	email = models.EmailField(null=True)
+	education = models.TextField()
+	speciality = models.ManyToManyField(CategoryChoices)
+	available_days = models.ManyToManyField(AvailableDays)
+
+	def __str__(self):
+		return self.user.username
+
+class ConsultationRequest(models.Model):
+	# user = models.ForeignKey(
+	#     "User", on_delete=models.CASCADE
+	# )
+	student = models.ForeignKey(
+		"StudentProfile",  on_delete=models.SET_NULL, blank=True, null=True
+	)
+	professional = models.ForeignKey(
+		"ProfessionalProfile",  on_delete=models.SET_NULL, blank=True, null=True
+	)
+	accepted = models.BooleanField(default=False)
+	request_date = models.DateTimeField(auto_now_add=True)
+	consultation_date = models.DateField(null=True)
+	consultation_hour = models.CharField(null=True, max_length=20)
+	category = models.ManyToManyField(CategoryChoices)
+	reason = models.TextField()
+	
+	def __str__(self):
+		return self.student.user.username
+
+class Consultation(models.Model):
+	request = models.ForeignKey(
+		"ConsultationRequest", related_name="request", on_delete=models.SET_NULL, blank=True, null=True
+	)
+	student = models.ForeignKey(
+		"StudentProfile", related_name="student", on_delete=models.SET_NULL, blank=True, null=True
+	)
+	professional = models.ForeignKey(
+		"ProfessionalProfile", related_name="professional", on_delete=models.SET_NULL, blank=True, null=True
+	)
+	gmeet_link = models.TextField(null=True)
+
+	def __str__(self):
+		return f"{self.pk}"
+	\end{verbatim}
+	\newpage
+
+	\subsection{Django Views}
+	\begin{verbatim}
+from django.db.models.expressions import OrderBy
+from django.shortcuts import render
+from django.http import HttpResponse
+from django.views.generic import ListView, DetailView, View, TemplateView, CreateView
+from django.shortcuts import redirect
+from django.contrib import messages
+from django.contrib.auth import login
+from django.http import HttpResponseRedirect, JsonResponse
+from django.urls import reverse
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
+from django.views.generic.edit import UpdateView
+
+from .forms import StudentInitialForm, ProfessionalInitialForm, ConsultationRequestForm
+from .models import CategoryChoices, StudentProfile, ProfessionalProfile, Consultation, ConsultationRequest, User
+
+def is_valid_form(values):
+	valid = True
+	for field in values:
+		if field == '':
+			valid = False
+	return valid
+
+@method_decorator([login_required], name='dispatch')
+class DashboardView(View):
+	model = User
+
+	def dispatch(self, request, *args, **kwargs):
+		if request.user.is_student:
+			return redirect("core:student_dashboard")
+		elif request.user.is_professional:
+			return redirect("core:professional_dashboard")
+		return super(DashboardView, self).dispatch(request, *args, **kwargs)
+
+class SignUpView(TemplateView):
+	template_name = 'account/signup.html'
+
+class HomeView(TemplateView):
+	template_name = "home.html"
+
+class StudentDashboardView(TemplateView):
+	template_name = "student_dashboard.html"
+
+class ProfessionalDashboardView(TemplateView):
+	template_name = "professional_dashboard.html"
+
+class StudentFormView(CreateView):
+	model = User
+	form_class = StudentInitialForm
+	template_name = "account/signup_form.html"
+	
+	def get_context_data(self, **kwargs):
+		kwargs["user_type"] = "student"
+		return super().get_context_data(**kwargs)
+
+	def form_valid(self, form):
+		user = form.save()
+		login(self.request, user, backend='django.contrib.auth.backends.ModelBackend')
+		return redirect("core:student_dashboard")
+
+class ProfessionalFormView(CreateView):
+	model = User
+	form_class = ProfessionalInitialForm
+	template_name = "account/signup_form.html"
+
+	def get_context_data(self, **kwargs):
+		kwargs["user_type"] = "professional"
+		return super().get_context_data(**kwargs)
+
+	def form_valid(self, form):
+		user = form.save()
+		login(self.request, user, backend='django.contrib.auth.backends.ModelBackend')
+		return redirect("core:professional_dashboard")
+
+class ConsultationRequestView(View):
+	
+	def get(self, *args, **kwargs):
+		form = ConsultationRequestForm()
+		context = {
+			'form' : form,
+			"object_list" : ProfessionalProfile.objects.all()
+		}
+		return render(self.request, "request_form.html", context)
+
+	def post(self, *args, **kwargs):
+		form = ConsultationRequestForm(self.request.POST or None)
+		if form.is_valid():
+			consultation_date = form.cleaned_data.get("consultation_date")
+			consultation_hour = form.cleaned_data.get("consultation_hour")
+			category = form.cleaned_data.get("category")[0]
+			reason = form.cleaned_data.get("reason")
+			professional = form.cleaned_data.get("professional")[0]
+
+			request = ConsultationRequest(
+				# user = self.request.user,
+				consultation_date = consultation_date,
+				consultation_hour = consultation_hour,
+				reason = reason,
+			)
+			request.save()
+			category_obj = CategoryChoices.objects.filter(category=category).values_list("id", flat=True)
+			request.category.add(category_obj[0])
+			request.professional = ProfessionalProfile.objects.filter(user=professional)[0]
+			request.student = StudentProfile.objects.filter(user=self.request.user)[0]
+			request.save()
+		return redirect("dashboard")
+
+class StudentRequestListView(ListView):
+	model = ConsultationRequest
+	paginate_by = 10
+	template_name = "student_request_list.html"
+
+	def get_queryset(self):
+		filter_val = StudentProfile.objects.filter(user=self.request.user)[0]
+		new_context = ConsultationRequest.objects.filter(
+			student=filter_val,
+		)
+		return new_context
+
+class ProfessionalRequestListView(ListView):
+	model = ConsultationRequest
+	paginate_by = 10
+	template_name = "professional_request_list.html"
+
+	def get_queryset(self):
+		filter_val = self.request.user
+		new_context = ConsultationRequest.objects.filter(
+			professional__user=filter_val,
+		)
+		return new_context
+
+def ajax_accept_request(request):
+	request_id = request.GET.get('request_id')
+	consul_request = ConsultationRequest.objects.get(pk=request_id)
+	try:
+		consul_request.accepted = True
+		consul_request.save()
+		
+		new_consultation = Consultation(
+			request = consul_request,
+			student = consul_request.student,
+			professional = consul_request.professional
+			)
+		new_consultation.save()
+
+		return JsonResponse({"success": True})
+	except Exception as e:
+		return JsonResponse({"success": False})
+
+class StudentConsultationListView(ListView):
+	model = Consultation
+	paginate_by = 10
+	template_name = "student_consultation_list.html"
+
+	def get_queryset(self):
+		filter_val = StudentProfile.objects.filter(user=self.request.user)[0]
+		new_context = Consultation.objects.filter(
+			student=filter_val,
+		)
+		return new_context
+
+class ProfessionalConsultationListView(ListView):
+	model = Consultation
+	paginate_by = 10
+	template_name = "professional_consultation_list.html"
+
+	def get_queryset(self):
+		filter_val = ProfessionalProfile.objects.filter(user=self.request.user)[0]
+		new_context = Consultation.objects.filter(
+			professional=filter_val,
+		)
+		return new_context
+	\end{verbatim}
+
+	\newpage
+
+	\subsection{Django Forms}
+	\begin{verbatim}
+from django.db.models.fields import CharField
+from core.models import AvailableDays, CategoryChoices, ProfessionalProfile, StudentProfile, User, ConsultationRequest, Consultation
+from django import forms
+from django.contrib.auth.forms import UserCreationForm
+from django.db import transaction
+
+class StudentInitialForm(UserCreationForm):
+	fullname = forms.CharField(required=True)
+	nim = forms.CharField(required=True)
+	email = forms.EmailField(required=True)
+
+	class Meta(UserCreationForm.Meta):
+		model = User
+
+	@transaction.atomic
+	def save(self):
+		user = super().save(commit=False)
+		user.is_student = True
+		user.save()
+		student = StudentProfile.objects.create(
+			user=user,
+			fullname=self.cleaned_data.get('fullname'),
+			nim = self.cleaned_data.get('nim'),
+			email = self.cleaned_data.get('email'))
+		return user
+
+class ProfessionalInitialForm(UserCreationForm):
+	fullname = forms.CharField(required=True)
+	education = forms.CharField(required=True)
+	email = forms.EmailField(required=True)
+	speciality = forms.ModelMultipleChoiceField(
+		queryset=CategoryChoices.objects.all(),
+		widget=forms.CheckboxSelectMultiple,
+		required=True)
+	available_days = forms.ModelMultipleChoiceField(
+		queryset=AvailableDays.objects.all(),
+		widget=forms.CheckboxSelectMultiple,
+		required=True)  
+
+	class Meta(UserCreationForm.Meta):
+		model = User
+
+	@transaction.atomic
+	def save(self, commit=True):
+		user = super().save(commit=False)
+		user.is_professional = True
+		user.save()
+		professional = ProfessionalProfile.objects.create(
+			user=user,
+			fullname = self.cleaned_data.get('fullname'),
+			education = self.cleaned_data.get('education'),
+			email = self.cleaned_data.get('email')
+			)
+		professional.speciality.add(*self.cleaned_data.get("speciality"))
+		professional.available_days.add(*self.cleaned_data.get("available_days"))
+		return user
+
+class DateInput(forms.DateInput):
+	input_type="date"
+
+class ConsultationRequestForm(forms.Form):
+
+	consultation_date = forms.DateField(widget=DateInput())
+	consultation_hour = forms.CharField()
+	category = forms.ModelMultipleChoiceField(
+		queryset=CategoryChoices.objects.all()
+	)
+	reason = forms.CharField()
+	professional = forms.ModelMultipleChoiceField(
+		queryset=ProfessionalProfile.objects.all()
+	)
+\end{verbatim}
+
 \end{document}
